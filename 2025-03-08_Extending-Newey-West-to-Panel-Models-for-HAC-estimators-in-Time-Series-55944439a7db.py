@@ -42,9 +42,9 @@ panel_model_clustered = PanelOLS(data["Oil"], X_matrix, entity_effects=True).fit
 logger.info("Clustered Standard Errors:")
 logger.info(panel_model_clustered.std_errors)
 
-Driscoll-Kraay Standard Errors:
-const    94.167844
-Days      2.787259
+# Driscoll-Kraay Standard Errors:
+# const    94.167844
+# Days      2.787259
 
 # Fit panel regression with clustered standard errors
 panel_model_clustered = PanelOLS(data["Y"], X_matrix, entity_effects=True).fit(cov_type="clustered", cluster_entity=True)
@@ -53,9 +53,9 @@ panel_model_clustered = PanelOLS(data["Y"], X_matrix, entity_effects=True).fit(c
 logger.info("Clustered Standard Errors:")
 logger.info(panel_model_clustered.std_errors)
 
-Clustered Standard Errors:
-const    14.046532
-Days      0.583994
+# Clustered Standard Errors:
+# const    14.046532
+# Days      0.583994
 
 
 # Extract standard errors
