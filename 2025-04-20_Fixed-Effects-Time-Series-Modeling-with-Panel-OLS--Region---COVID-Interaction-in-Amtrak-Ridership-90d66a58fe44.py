@@ -16,7 +16,7 @@ logging.basicConfig(
 )
 
 
-Ridership_it = α_i + β_1 * t + β_2 * post_covid + β_3 * (post_covid × region) + ε_it
+Ridership_it = α_i + β_1 * t + β_2 * post_covid + β_3 * (post_covid * region) + ε_it
 
 post_covid = -61,450 (p < 0.001)
 t = +4,136 (p < 0.001)
