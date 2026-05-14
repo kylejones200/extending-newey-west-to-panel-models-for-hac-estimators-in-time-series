@@ -17,7 +17,7 @@ The Heteroskedasticity and Autocorrelation Consistent (HAC) estimator to panel d
 
 Panel data generally is heteroskedastic (errors vary across individuals) but also serial correlated (past errors influence current errors). There is also potential for cross-sectional dependence where errors across entities may be correlated at the same time.
 
-If we ignore these issues, the standard errors will be biased and will lead to **i**ncorrect hypothesis tests and confidence intervals.
+If we ignore these issues, the standard errors will be biased and will lead to incorrect hypothesis tests and confidence intervals.
 
 ### Driscoll-Kraay Standard Errors --- HAC for Panel Data
 The Driscoll-Kraay standard errors extend Newey-West by adjusting for serial correlation within each entity (like Newey-West) and also cross-sectional dependence across entities (unlike Newey-West). It also allows for heteroskedasticity (variance differences across groups). This makes Driscoll-Kraay robust to general forms of autocorrelation and heteroskedasticity in panel data (Hooray!).
