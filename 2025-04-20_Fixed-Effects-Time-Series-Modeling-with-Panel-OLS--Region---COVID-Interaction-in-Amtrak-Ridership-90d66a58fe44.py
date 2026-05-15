@@ -6,7 +6,6 @@ from data_io import read_csv
 from linearmodels.panel import PanelOLS
 import logging
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 logger = logging.getLogger(__name__)
