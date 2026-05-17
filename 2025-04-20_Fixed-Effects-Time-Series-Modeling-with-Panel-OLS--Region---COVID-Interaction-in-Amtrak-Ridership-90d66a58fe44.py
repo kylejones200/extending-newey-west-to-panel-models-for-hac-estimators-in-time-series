@@ -15,10 +15,8 @@ logging.basicConfig(
 )
 
 
-Ridership_it = α_i + β_1 * t + β_2 * post_covid + β_3 * (post_covid * region) + ε_it
-
-post_covid = -61, 450(p < 0.001)
-t = +4, 136(p < 0.001)
+# Model: Ridership_it = alpha_i + b1*t + b2*post_covid + b3*(post_covid*region) + e_it
+# Example coefficients from article: post_covid coef -61 (p<0.001); time trend t +4.136 (p<0.001)
 
 
 url = "https://raw.githubusercontent.com/kylejones200/time_series/refs/heads/main/data/amtrak_ridership_time_series_data.csv"
