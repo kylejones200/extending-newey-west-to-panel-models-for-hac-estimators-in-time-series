@@ -1,6 +1,5 @@
 # Description: Short example for Extending Newey West to Panel Models for HAC estimators in Time Series.
 
-
 import logging
 
 import matplotlib.pyplot as plt
@@ -16,7 +15,6 @@ def main():
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     )
-
 
     # Load the dataset
     file_path = "north_dakota_production.csv"
@@ -46,24 +44,19 @@ def main():
     # Print clustered standard errors
     logger.info("Clustered Standard Errors:")
     logger.info(panel_model_clustered.std_errors)
-
     # Driscoll-Kraay Standard Errors:
     # const    94.167844
     # Days      2.787259
-
     # Fit panel regression with clustered standard errors
     panel_model_clustered = PanelOLS(data["Y"], X_matrix, entity_effects=True).fit(
         cov_type="clustered", cluster_entity=True
     )
-
     # Print clustered standard errors
     logger.info("Clustered Standard Errors:")
     logger.info(panel_model_clustered.std_errors)
-
     # Clustered Standard Errors:
     # const    14.046532
     # Days      0.583994
-
 
     # Extract standard errors
     ols_se = panel_model.std_errors.to_numpy()

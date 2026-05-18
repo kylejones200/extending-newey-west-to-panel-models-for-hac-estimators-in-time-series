@@ -1,6 +1,5 @@
 # Description: Short example for Fixed Effects Time Series Modeling with Panel OLS Region COVID Interaction in Amtrak Ridership.
 
-
 import logging
 
 import matplotlib.pyplot as plt
@@ -14,10 +13,8 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
 
-
 # Model: Ridership_it = alpha_i + b1*t + b2*post_covid + b3*(post_covid*region) + e_it
 # Example coefficients from article: post_covid coef -61 (p<0.001); time trend t +4.136 (p<0.001)
-
 
 url = "https://raw.githubusercontent.com/kylejones200/time_series/refs/heads/main/data/amtrak_ridership_time_series_data.csv"
 # Load data
@@ -102,23 +99,19 @@ def assign_region(state):
     return "Other"
 
 
-
 def main():
     station_meta = df.drop_duplicates("Station")[["Station", "State"]].copy()
     station_meta["Region"] = station_meta["State"].apply(assign_region)
     df = df.merge(station_meta[["Station", "Region"]], on="Station", how="left")
     df["region"] = df["Region"]
-
     # Convert to panel format
     df = df.set_index(["Station", "year"]).sort_index()
-
     # Estimate PanelOLS model
     model = PanelOLS.from_formula(
         "Ridership ~ post_covid * region + t + EntityEffects", data=df, drop_absorbed=True
     )
     res = model.fit(cov_type="clustered", cluster_entity=True)
     logger.info(res.summary)
-
     # Extract region-level marginal effects
     baseline = res.params["post_covid"]
     region_effects = {
@@ -127,7 +120,6 @@ def main():
         "South": baseline + res.params.get("post_covid:region[T.South]", 0),
         "West": baseline + res.params.get("post_covid:region[T.West]", 0),
     }
-
     # Manual 95% CI based on model std errors
     ci = {
         "Midwest": (
@@ -135,10 +127,8 @@ def main():
             baseline + 1.96 * res.std_errors["post_covid"],
         ),
         "Northeast": (
-            region_effects["Northeast"]
-            - 1.96 * res.std_errors["post_covid:region[T.Northeast]"],
-            region_effects["Northeast"]
-            + 1.96 * res.std_errors["post_covid:region[T.Northeast]"],
+            region_effects["Northeast"] - 1.96 * res.std_errors["post_covid:region[T.Northeast]"],
+            region_effects["Northeast"] + 1.96 * res.std_errors["post_covid:region[T.Northeast]"],
         ),
         "South": (
             region_effects["South"] - 1.96 * res.std_errors["post_covid:region[T.South]"],
@@ -149,17 +139,13 @@ def main():
             region_effects["West"] + 1.96 * res.std_errors["post_covid:region[T.West]"],
         ),
     }
-
     # Plot marginal effects with confidence intervals
     regions = list(region_effects.keys())
     coefs = [region_effects[r] for r in regions]
     lower_err = [abs(ci[r][0] - coefs[i]) for i, r in enumerate(regions)]
     upper_err = [abs(ci[r][1] - coefs[i]) for i, r in enumerate(regions)]
-
     plt.figure(figsize=(8, 5))
-    plt.errorbar(
-        regions, coefs, yerr=[lower_err, upper_err], fmt="o", color="black", capsize=5
-    )
+    plt.errorbar(regions, coefs, yerr=[lower_err, upper_err], fmt="o", color="black", capsize=5)
     plt.axhline(0, color="gray", linestyle="--", linewidth=0.8)
     plt.title("Estimated Drop in Ridership Post-COVID by Region", fontname="serif")
     plt.ylabel("Marginal Effect (Riders Lost)", fontname="serif")
