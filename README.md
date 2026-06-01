@@ -11,14 +11,7 @@ While the Newey-West variance estimator is commonly used for time series models,
 
 The Heteroskedasticity and Autocorrelation Consistent (HAC) estimator to panel data, covering:
 
-## About
 
-Place the code for this article in this repository.
-The original article export is saved as `article.md`.
-
-## Files
-
-Add your `.ipynb`, `.py`, `.yaml`, `.js`, `.ts`, or other project files here.
 
 ## Disclaimer
 
